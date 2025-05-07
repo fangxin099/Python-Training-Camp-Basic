@@ -20,4 +20,29 @@ def student_dict_operations(students_dict, operation, *args):
     - 根据操作返回不同结果
     """
     # 请在下方编写代码
-    pass 
+    if operation == "add":
+        if len(args) != 2:
+            return  ValueError("params error")
+        key,value = args
+        students_dict[key] = value
+        return students_dict
+
+    if operation == "remove":
+        if len(args) != 1:
+            return  ValueError("params error")
+        key = args[0]
+        del students_dict[key]
+        return students_dict
+    
+    if operation == "update":
+        if len(args) != 2:
+            return  ValueError("params error")
+        key,value = args
+        students_dict[key] = value
+        return students_dict
+    
+    if operation == "get":
+        if len(args) != 1:
+            return  ValueError("params error")
+        key = args[0]
+        return students_dict[key]

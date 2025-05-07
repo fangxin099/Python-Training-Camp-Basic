@@ -1,3 +1,5 @@
+import requests;
+
 """
 练习: HTTP请求
 
@@ -11,7 +13,7 @@
 def get_website_content(url):
     """
     发送GET请求获取网页内容
-    
+
     参数:
     - url: 目标网站URL
     
@@ -26,7 +28,12 @@ def get_website_content(url):
     # 请在下方编写代码
     # 使用requests.get()发送GET请求
     # 返回包含状态码、内容和头部信息的字典
-    pass
+    result = {}
+    res = requests.get(url)
+    result["status_code"] = res.status_code
+    result["content"] = res.text
+    result["headers"] = dict(res.headers) # 将数据类型转为字典
+    return result
 
 def post_data(url, data):
     """
@@ -47,4 +54,17 @@ def post_data(url, data):
     # 请在下方编写代码
     # 使用requests.post()发送POST请求
     # 返回包含状态码、响应JSON和成功标志的字典
-    pass 
+    res = requests.post(url,data)
+
+    try:
+      response_json = res.json()
+    except ValueError:
+      response_json = None  # 如果响应不是JSON格式，则设置为None
+
+    success = 200 <=  res.status_code < 300
+  
+    result = {}
+    result["status_code"] = res.status_code
+    result["response_json"] = response_json
+    result["success"] = success
+    return result
